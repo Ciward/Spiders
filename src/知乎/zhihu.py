@@ -1,6 +1,6 @@
 
 from bs4 import BeautifulSoup           #网页解析，获取数据
-import re,requests,os,time,difflib,xlwt,wordcloud                #正则表达式，进行文字匹配     #指定URL，获取网页数据
+import re,requests,os,time,difflib,xlwt               #正则表达式，进行文字匹配     #指定URL，获取网页数据
                                    #进行excel操作
 class File():
     fp = None
@@ -10,7 +10,7 @@ def main():
 #     1. 获取网页
     baseurl = "https://www.zhihu.com/billboard"
 #     2. 获取和解析数据
-    n=15
+    n=0
 
     while 1:
         File.fp=open(os.path.join("./", 'text.txt', ), 'a', encoding="utf-8")
@@ -21,7 +21,7 @@ def main():
         saveData(datalist,savepath)
         n+=1
         File.fp.close()
-        time.sleep(1800)
+        time.sleep(1800)#每隔半小时爬一次
 
 def getData(baseurl):
 
