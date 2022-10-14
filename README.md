@@ -6,3 +6,6 @@ bs4，difflib,xlwt,wordcloud,requests
 
 均可直接命令行：
   pip install ...
+
+知乎项目：
+  由于当天的榜单几乎不变，而隔天变换较大，本爬虫每天运行一次，即可全自动获取当天榜单所有信息
