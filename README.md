@@ -14,3 +14,8 @@ bs4，difflib,xlwt,wordcloud,requests
 wallpaper项目：
     第一个拿得出手的爬虫
     在wallhaven.cc上获取精美（赏心悦目(¬‿¬)）图片
+    
+山大通知项目：
+    内含两个.py文件
+    notice.py有用，爬入excle加提醒功能
+    notice_all.py爬取所以通知(/▽＼)，好像没啥用
