@@ -4,13 +4,15 @@ import re,requests,os,time,difflib,xlwt            #正则表达式，进行文�
 from cloud import cloud
 class File():
     fp = None
-
+    # 词云图的txt
 def main():
 
 #     1. 获取网页
     baseurl = "https://www.zhihu.com/billboard"
 #     2. 获取和解析数据
-
+        # 词云图的txt
+    if not os.path.exists("./outcome"):
+        os.makedirs("./outcome")
     File.fp=open(os.path.join("./outcome/", 'text'+time.strftime('%Y-%m-%d-%H')+'.txt', ), 'a', encoding="utf-8")
     datalist = getData(baseurl)
 #     3. 保存数据
@@ -35,7 +37,6 @@ def getData(baseurl):
         title = re.findall(r'HotList-itemTitle">(.*?)</div>',item,re.S)
         for i in title:
             data[0]=i.replace(' ','')
-            #File.fp.write(data[0])
             hot=re.findall(r'HotList-itemMetrics">(.*?) 万热度</div>', item,re.S)
 
             if hot==[]:data.append('广告')
@@ -67,7 +68,7 @@ def getData(baseurl):
             di-=1
         #time.sleep((0.4))
     return datalist
-#def if_correspond(name,)
+
 def gettopic(url,i):
     html = askURL(url)
     title=re.findall(r'<title data-rh="true">(.*?) - 知乎', html, re.S)[0]
@@ -78,17 +79,12 @@ def gettopic(url,i):
         #print(item)
         item=str(item)
         try:
-            #print(item)
-            #res+=re.findall(r'aria-owns="null-content" id="null-toggle">(.*?)</div></div>', item, re.S)[0]+' '
+            # 去除汉字之外的字符
             res += re.sub(r'[^\u4e00-\u9fa5]','',re.findall(r'class="css-1gomreu">(.*?)</div>', item, re.S)[0]).replace(' ','') + ' '
-
         except:pass
-        #print(re.findall(r'aria-owns="null-content" id="null-toggle">(.*?)</div></div>', item, re.S))#re.findall(r'<meta itemprop="url" content="(.*?)">', html,re.S)
-    #print(itml)
-    #return re.findall(r'href="(.*?)"', html, re.S)#re.findall(r'<meta itemprop="url" content="(.*?)">', html,re.S)
 
-    if i<3:
-        File.fp.write(res*(3-i))
+    if i<3: # 榜前三名进行加重写入使词云图更加客观
+        File.fp.write(res*(6-2*i))
     else:File.fp.write(res)
     #print(res)
     return (res,title)
@@ -120,8 +116,6 @@ def askURL(url):
 
     return html
 
-if __name__ == "__main__":  #程序执行时
-    #调用函数
+if __name__ == "__main__":
     main()
-    print("爬取完毕！/n一小时后再次爬取")
-
+    print("爬取完毕！")
