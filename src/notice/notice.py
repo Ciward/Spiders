@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import re,requests,os,time,xlwt
 import tkinter.messagebox
+from send_email import send_to
 class D():
     datalist=[]
     i=0
@@ -32,7 +33,9 @@ def getData(baseurl):
     for s in re.findall(r'style="float:right;">(.*?)</div>',html,re.S):
         D.datalist[D.i][2]=s[1:11]
         if int(time.strftime('%d'))-int(D.datalist[D.i][2][8:10])<6 and D.i<6:
-            tkinter.messagebox.showinfo('您有近5天的新通知，请注意查收',D.datalist[D.i][0]+D.datalist[D.i][2])
+            msg=D.datalist[D.i][0]+'\n'+D.datalist[D.i][2]
+            tkinter.messagebox.showinfo('您有近5天的新通知，请注意查收',msg)
+            send_to('2273805191@qq.com',msg)
         D.i+=1
 
 def main():
